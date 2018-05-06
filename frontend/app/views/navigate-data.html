@@ -1,0 +1,52 @@
+<div class="container grid" ng-controller="GridController as gridController">
+    <h2>Grid view for data navigation</h2>
+    <input class="form-control filter" type="text" ng-model="gridController.filter.title" placeholder="Filter by title" aria-label="Filter by title">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="picture in gridController.currentPictures" ng-include="gridController.getTemplate(picture)">
+                
+            </tr>
+            <form name="createPicture">
+                <tr >
+                    <td><input type="file" id="image" name="image" file-model="gridController.newPicture.image" class="form-control" required="true"/></td>
+                    <td>
+                        <select id="category" class="form-control input-sm" ng-model=gridController.newPicture.category required>
+                            <option value=""></option>
+                            <option value="Nature">Nature</option>
+                            <option value="Animals">Animals</option>
+                            <option value="Buildings">Buildings</option>
+                        </select>
+                    </td>
+                    <td><input type="text" id="title" ng-model=gridController.newPicture.title class="form-control input-sm" required /></td>
+                    <td><input type="text" id="description" ng-model=gridController.newPicture.description class="form-control input-sm" required/></td>
+                    <td>
+                        <button type="submit" class="btn btn-primary" ng-click="gridController.createPicture()">Create</button> 
+                    </td>
+                </tr>
+            
+            </form>
+        </tbody>
+    </table>
+    <ul ng-if="gridController.pager.pages.length" class="pagination">
+        <li class="page-item" ng-class="{disabled:gridController.pager.currentPage === 1}">
+            <a class="page-link" ng-click="gridController.setPage(gridController.pager.currentPage - 1)" href="#">Previous</a>
+        </li>
+        <li class="page-item" ng-repeat="page in gridController.pager.pages" ng-class="{active:gridController.pager.currentPage === page}">
+            <a class="page-link" ng-click="gridController.setPage(page)" href="#">{{page}}</a>
+        </li>                
+        <li class="page-item" ng-class="{disabled:gridController.pager.currentPage === gridController.pager.totalPages}">
+            <a class="page-link" ng-click="gridController.setPage(gridController.pager.currentPage + 1)" href="#">Next</a>
+        </li>
+    </ul>
+ 
+</div> 

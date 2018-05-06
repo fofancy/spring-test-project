@@ -1,0 +1,81 @@
+<!doctype html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task for ossystem</title>
+
+</head>
+
+<body ng-app="app">
+    <header>
+        <nav class="navbar navbar-expand-md bg-white" >
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link text-blue" href="/">Input Form</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link text-blue" href="/data">Navigate data</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="ng-cloak nav-link text-white" href="signin" ng-if="!navbarCtrl.isLoggedIn">Sign in</a>
+                            <a class="ng-cloak nav-link text-white" ng-if="navbarCtrl.isLoggedIn">Logout</a>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="content" ng-view></div>
+
+    <script type="text/ng-template" id="display">
+        <td><img class="grid-image" ng-src="data:image/JPEG;base64,{{picture.image}}"></td>
+        <td>{{ picture.category }}</td>
+        <td>{{ picture.title }}</td>
+        <td>{{ picture.description }}</td>
+        <td>
+            <p title="Edit">
+                <button class="btn btn-primary btn-xs" ng-click="gridController.editPicture(picture)">
+                    Edit
+                </button>
+            </p>
+        </td>
+        <td>
+            <p title="Delete">
+                <button class="btn btn-danger btn-xs" ng-click = "gridController.deletePicture($index)">
+                    Delete
+                </button>
+            </p>
+        </td>
+    </script>
+    <script type="text/ng-template" id="edit">
+        <form>
+            <td><input type="file" file-model="picture.image" class="form-control input-sm" required/></td>
+            <td>
+                <select class="form-control input-sm" ng-model=picture.category required>
+                    <option value=""></option>
+                    <option value="Nature">Nature</option>
+                    <option value="Animals">Animals</option>
+                    <option value="Buildings">Buildings</option>
+                </select>
+            </td>
+            <td><input type="text" ng-model=picture.title class="form-control input-sm" required/></td>
+            <td><input type="text" ng-model=picture.description class="form-control input-sm" required/></td>
+            <td>
+                <button type="submit" class="btn btn-primary" ng-click="gridController.updatePicture(picture)">Save</button>
+                <button type="button" class="btn btn-danger" ng-click="gridController.reset()">Cancel</button>
+            </td>
+        </form>
+    </script>
+    
+    <footer>
+        Developer : Andrej Yeremeiev
+    </footer>
+</body>
+
+</html>

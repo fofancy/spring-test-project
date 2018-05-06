@@ -1,0 +1,14 @@
+.grid .filter {
+    font-size: 1.0em;
+
+    margin : 0px 20px 20px 0px;
+}
+
+.grid .a {
+    cursor: pointer;
+}
+
+.grid-image {
+    height: 100px;
+    width: 100px;
+}
