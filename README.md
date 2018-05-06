@@ -8,7 +8,7 @@ has a proxy to 8080 backend port. And backend is deployed on Tomcat application 
 The idea is following: user does some actions on a web-site, client sends http request to webpack-dev-server and frontend web server 
 redirects it to backend application server which interacts with database server and processes requests.
 
-The backend architecture is classic. It has 3 layres : controller, service and repository. There were 
+The backend architecture is classic. It has 3 layers : controller, service and repository. There were 
 created Picture entity class and PictureDto class for interacting with database and client-side. For data layer was used Spring data.
 
 The frontend architecture also very simple. Angularjs controllers handel user actions and uses service wrappers for http requests
