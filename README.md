@@ -44,7 +44,7 @@ Also what I'd like to add : validation and tests.
 5. gradlew bootRun
     It should connet to you oracle db. Make sure there is a possibility to establish a connection.
 
-6. Open the second terminal in the project root foler
+6. Open the second terminal in the project root folder
 7. cd frontend
 8. npm install
 9. webpack-dev-server
