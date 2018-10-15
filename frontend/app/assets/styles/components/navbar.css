@@ -1,0 +1,12 @@
+.navbar {
+    font-size: 2em; 
+
+    height: 100px;
+
+    border-bottom: 1px solid;
+    border-bottom-color: lightgrey;
+}
+
+.navbar li.nav-item + li.nav-item{
+    margin: 0 0 0 1.0rem;
+}

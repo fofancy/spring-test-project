@@ -1,0 +1,42 @@
+<div class="container" ng-controller="InputFormController as inputFormCtrl">
+    <h2>Input form for data</h2>
+    
+    <form id="input-form" class="form-horizontal" ng-submit="inputFormCtrl.addNewPicture()" role="form">
+        <div class="form-group">
+            <label for="image" class="col-sm-3 control-label">Image</label>
+            <div class="col-sm-7">
+                <input type="file" id="image" name="image" class="form-control" file-model="inputFormCtrl.newPicture.image" required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="category" class="col-sm-3 control-label">Category</label>
+            <div class="col-sm-4">
+                <select id="category" class="form-control" ng-model="inputFormCtrl.newPicture.category" required>
+                    <option value=""></option>
+                    <option value="Nature">Nature</option>
+                    <option value="Animals">Animals</option>
+                    <option value="Buildings">Buildings</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="title" class="col-sm-3 control-label">Title</label>
+            <div class="col-sm-7">
+                <input type="text" id="title" class="form-control" ng-model="inputFormCtrl.newPicture.title" required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-3 control-label">Description</label>
+            <div class="col-sm-7">
+                <input type="text" id="description" class="form-control" ng-model="inputFormCtrl.newPicture.description" required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1"> 
+                <button type="submit" class="btn btn-primary">Submit</button> 
+            </div>
+        </div>
+    </form>
+ 
+
+</div>
