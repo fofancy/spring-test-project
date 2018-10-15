@@ -1,0 +1,48 @@
+version: '3'
+services:
+    config:
+      image: andrejeru/config:latest
+      ports: 
+          - 8088:8088
+      networks:
+          - webnet
+    discovery:
+      image: andrejeru/discovery:latest
+      ports: 
+          - 8061:8061
+      depends_on:
+          - config
+      networks:
+          - webnet
+    gateway:
+      image: andrejeru/gateway:latest
+      ports: 
+          - 8085
+      depends_on:
+          - discovery
+      networks:
+          - webnet
+    pictures:
+      image: andrejeru/pictures:latest
+      ports: 
+          - 9090
+      depends_on:
+          - gateway
+      networks:
+          - webnet
+    visualizer:
+      image: dockersamples/visualizer:stable
+      ports:
+        - 8080:8080
+      volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+      deploy:
+        placement:
+          constraints: [node.role == manager]
+      networks:
+        - webnet
+
+
+
+networks:
+  webnet:

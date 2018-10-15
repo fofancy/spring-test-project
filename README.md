@@ -15,9 +15,6 @@ The frontend architecture also very simple. Angularjs controllers handel user ac
 and sends them to a backend. Bootstrap styles was atively used for html/css. Npm modules and webpack were used to load dependencies
 and build project.
 
-As RDBMS was used Oracle rdbms.
-
-Also what I'd like to add : validation and tests.
 
 
 <h2> How to launch </h2>
@@ -32,21 +29,85 @@ Also what I'd like to add : validation and tests.
                 -DartifactId=ojdbc7
                 -Dversion=12.1.0.1.0
                 -Dpackaging=jar
-     4. Oracle rdbms
+    4. Docker
+    5. Oracle Virtual Box
+    6. docker-machine
+    7. DockerHub acount (optional)
+
     
- <h3> Launch projet </h3>    
-1. Clone the Repo 
+ <h3> Launch project </h3>    
+Clone the Repo 
     git clone https://github.com/fofancy/test-task-ossystem.git
 
-2. Go to ./backend/src/main/resources/application.properties and edit all appropriate data for oracle db connection (url, user, etc...)
-3. Set all comfortable ports for frontend server and backend
-4. cd backend
-5. gradlew bootRun
-    It should connet to you oracle db. Make sure there is a possibility to establish a connection.
 
-6. Open the second terminal in the project root folder
-7. cd frontend
-8. npm install
-9. webpack-dev-server
+<h3> Build </h3>
+All images are pushed to public repositories so it isn't needed to build them.
+But if necessary
 
-10. Open a browser and enter localhost:[webpack-dev-server.port]/
+Build each projects with commands
+sudo gradle clean assemble
+
+or 
+
+sudo mvn clean package
+
+To login do you docker account run 
+
+```
+sudo docker login
+```
+
+Enter your creds.
+Then build each project like:
+
+```
+docker build -t anrejeru/config .
+```
+
+and push them into your repository
+
+```
+docker push andrejeru/config:latest
+```
+
+<h3>Swarm</h3>
+Create virtual machines for swarm
+
+```
+docker-machine create --driver virtualbox vm1
+docker-machine create --driver virtualbox vm2
+docker-machine create --driver virtualbox vm3
+docker-machine ssh vm1 "docker swarm init --advertise-addr $(docker-machine ip vm1)"
+```
+
+You will receive response something like 
+
+```
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-21csh01wf1om5csmyfgwg11cf372ioz3q69puc0qkyg76l0ki3-1ohplrspnlm4t6mrsjq6i600s 192.168.99.103:2377
+```
+
+Add workers to manager:
+
+```
+docker-machine ssh vm2 "docker swarm join --token SWMTKN-1-21csh01wf1om5csmyfgwg11cf372ioz3q69puc0qkyg76l0ki3-1ohplrspnlm4t6mrsjq6i600s 192.168.99.103:2377"
+docker-machine ssh vm3 "docker swarm join --token SWMTKN-1-21csh01wf1om5csmyfgwg11cf372ioz3q69puc0qkyg76l0ki3-1ohplrspnlm4t6mrsjq6i600s 192.168.99.103:2377"
+```
+
+Than cd devops and connect to master node:
+
+```
+docker-machine env vm1
+eval $(docker-machine env vm1)
+```
+
+Deploy stack to swarm
+
+```
+docker stack deploy -c docker-compose.yml app
+```
+
+Open a browser and enter [vm1-host-ip]:[8061]/
+
+It will show services connected to eureka.

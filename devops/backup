@@ -1,0 +1,22 @@
+      deploy:
+        replicas: 3
+        resources:
+          limits:
+            cpus: "0.3"
+            memory: 550M
+        restart_policy:
+          condition: on-failure
+
+
+sudo docker tag config andrejeru/config
+sudo docker tag discovery andrejeru/discovery
+sudo docker tag gateway andrejeru/gateway
+sudo docker tag pictures andrejeru/pictures
+sudo docker push andrejeru/config
+sudo docker push andrejeru/discovery
+sudo docker push andrejeru/gateway
+sudo docker push andrejeru/pictures
+
+
+
+
