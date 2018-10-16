@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebPackPlugin = require("html-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
     entry: './app/app.js',
@@ -69,7 +70,10 @@ module.exports = {
 
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new ExtractTextPlugin("styles.css")
+        new ExtractTextPlugin("styles.css"),
+        new CopyWebpackPlugin([
+            { from: 'app/views', to: 'views'}
+        ])
     ]
     // plugins: [
     //     new webpack.ProvidePlugin({

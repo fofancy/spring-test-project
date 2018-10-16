@@ -70,6 +70,20 @@ and push them into your repository
 docker push andrejeru/config:latest
 ```
 
+<h3>Frontend</h3>
+
+cd frontend
+
+Build frontend with:
+
+```
+webpack
+```
+
+Build docker image and push it to repository if neccessary.
+
+You can see following chain of proxies. For example, we will speak about request to the picture service. On the front end requests with url http://localhost:8081/api/pictures/picture and appropriate aprams will be send. First of all, node js will proxy frontend request from loclahost:8081/api/pictures/picture to gateway:8085/api/pictures/picture. Than zuul proxy will forward request with proxy as follows : gateway:8085/api/pictures/picture to pictures:9090/picture
+
 <h3>Swarm</h3>
 Create virtual machines for swarm
 
@@ -78,6 +92,7 @@ docker-machine create --driver virtualbox vm1
 docker-machine create --driver virtualbox vm2
 docker-machine create --driver virtualbox vm3
 docker-machine ssh vm1 "docker swarm init --advertise-addr $(docker-machine ip vm1)"
+
 ```
 
 You will receive response something like 
@@ -108,6 +123,11 @@ Deploy stack to swarm
 docker stack deploy -c docker-compose.yml app
 ```
 
+Check your services:
 Open a browser and enter [vm1-host-ip]:[8061]/
 
 It will show services connected to eureka.
+
+Open the browser at [vm1-host-ip]:8081/ address
+
+

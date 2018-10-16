@@ -15,7 +15,7 @@ export default function pictureHttpService ($http) {
         console.log(payload);
         $http({
             method: 'POST',
-            url: 'http://localhost:8081/api/picture', 
+            url: 'api/pictures/picture', 
             data: payload,
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
@@ -35,7 +35,7 @@ export default function pictureHttpService ($http) {
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/api/picture',
+            url: 'api/pictures/picture',
             contentType: 'application/json', 
             params: params
         }).then(
@@ -47,7 +47,7 @@ export default function pictureHttpService ($http) {
     function deletePicture(requestParams, callbackSuccess, callbackReject) {
         $http({
             method: 'DELETE',
-            url: 'http://localhost:8081/api/picture',
+            url: 'api/pictures/picture',
             contentType: 'application/json', 
             params: {'id' : requestParams.id}
         }).then(
@@ -66,7 +66,7 @@ export default function pictureHttpService ($http) {
 
         $http({
             method: 'PUT',
-            url: 'http://localhost:8081/api/picture',
+            url: 'api/pictures/picture',
             data: payload,
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}

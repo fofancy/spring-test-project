@@ -17,7 +17,7 @@ services:
     gateway:
       image: andrejeru/gateway:latest
       ports: 
-          - 8085
+          - 8085:8085
       depends_on:
           - discovery
       networks:
@@ -25,11 +25,15 @@ services:
     pictures:
       image: andrejeru/pictures:latest
       ports: 
-          - 9090
+          - 9090:9090
       depends_on:
           - gateway
       networks:
           - webnet
+      deploy:
+        restart_policy:
+          condition: on-failure
+        replicas: 3
     visualizer:
       image: dockersamples/visualizer:stable
       ports:
@@ -41,8 +45,14 @@ services:
           constraints: [node.role == manager]
       networks:
         - webnet
-
-
+    frontend: 
+      image: andrejeru/frontend
+      ports: 
+          - 8081:8081
+      depends_on:
+          - pictures
+      networks:
+          - webnet
 
 networks:
   webnet:
